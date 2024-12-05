@@ -1,13 +1,22 @@
 {% extends 'home.html' %}
+<div class="mensagens">
+    {%- for mensagem in get_flashed_messages()%}
 
-{% block conteudo %}
-{% for n in lista_funcionarios %}
-<div class="cards">
-    ID Funcionário: {{n.id_funcionario}}<br>
-    Nome: {{n.nome}}<br>
-    Email: {{n.email}}<br>
-    Telefone: {{n.telefone}}<br>
-    CPF: {{n.cpf}}<br>>
+    {{mensagem}}
+
+    {%- endfor %}
 </div>
-{% endfor %}
+{% block conteudo %}
+<div class="funcionario">
+    {% for n in lista_funcionarios %}
+    <div class="cards">
+        <p><strong>ID Funcionário:</strong> {{n.id_funcionario}}</p>
+        <p><strong>Nome:</strong> {{n.nome}}</p>
+        <p><strong>Email:</strong> {{n.email}}</p>
+        <p><strong>Telefone:</strong> {{n.telefone}}</p>
+        <p><strong>CPF:</strong> {{n.cpf}}</p>
+        <a href="{{ url_for('editar_funcionario', id_p=n.id_funcionario) }}">EDITAR</a>
+    </div>
+    {% endfor %}
+</div>
 {% endblock conteudo %}

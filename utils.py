@@ -4,19 +4,19 @@ from sqlalchemy import select
 
 def inserir_produto():
     produto = Produto(nome=str(input('Nome: ')),
-                    preco=float(input('Preço do produto: ')),
-                    descricao=str(input('Descrição do produto: ')),
-                    data_fabricacao=str(input('Data de fabricação do produto: ')),
-                    quantidade=int(input('Quantidade do produto: ')),
-                    versao_produto=str(input('Versão do produto: ')),
-                    garantia_produto=str(input('Garantia do produto: ')),
-                    desconto_produto=int(input('Desconto do produto: ')),
-                    id_categoria_produto=int(input('Insira a Categoria do Produto: '))
+                      preco=float(input('Preço do produto: ')),
+                      descricao=str(input('Descrição do produto: ')),
+                      data_fabricacao=str(input('Data de fabricação do produto: ')),
+                      quantidade=int(input('Quantidade do produto: ')),
+                      versao_produto=str(input('Versão do produto: ')),
+                      garantia_produto=str(input('Garantia do produto: ')),
+                      desconto_produto=int(input('Desconto do produto: ')),
+                      id_categoria_produto=int(input('Insira a Categoria do Produto: '))
                       )
-
 
     print(produto)
     produto.save()
+
 
 def consulta_produto():
     var_produto = select(Produto)
@@ -33,10 +33,10 @@ def atualizar_produto():
 
 
 def deletar_produto():
-   produto_deletar = input('Qual produto deseja deletar? ')
-   var_produto = select(Produto).where(produto_deletar == Produto.nome)
-   var_produto = db_session.execute(var_produto).scalar()
-   var_produto.delete()
+    produto_deletar = input('Qual produto deseja deletar? ')
+    var_produto = select(Produto).where(produto_deletar == Produto.nome)
+    var_produto = db_session.execute(var_produto).scalar()
+    var_produto.delete()
 
 
 def inserir_categoria():
@@ -54,18 +54,19 @@ def consulta_categoria():
 
 def atualizar_categoria():
     var_categoria = select(Categoria).where(str(input('Nome Categoria: ')) == Categoria.nome)
-    var_categoria= db_session.execute(var_categoria).scalar()
+    var_categoria = db_session.execute(var_categoria).scalar()
     print(var_categoria)
     var_categoria.nome = str(input('Nova Categoria: '))
     var_categoria.save()
 
 
 def deletar_categoria():
-        categoria_deletar = input('Qual Categoria Deseja Deletar? ')
-        var_categoria = select(Categoria).where(categoria_deletar == Categoria.nome)
-        var_categoria = db_session.execute(var_categoria).scalar()
-        print(var_categoria)
-        var_categoria.delete()
+    categoria_deletar = input('Qual Categoria Deseja Deletar? ')
+    var_categoria = select(Categoria).where(categoria_deletar == Categoria.nome)
+    var_categoria = db_session.execute(var_categoria).scalar()
+    print(var_categoria)
+    var_categoria.delete()
+
 
 def inserir_movimentacao():
     movimentacao = Movimentacao(status=str(input('Status: ')),
@@ -94,10 +95,10 @@ def atualizar_movimentacao():
 
 
 def deletar_movimentacao():
-   movimentacao_deletar = input('Qual movimentação deseja deletar?')
-   var_movimentacao = select(Movimentacao).where(movimentacao_deletar == Movimentacao.status)
-   var_movimentacao = db_session.execute(var_movimentacao).scalar()
-   var_movimentacao.delete()
+    movimentacao_deletar = input('Qual movimentação deseja deletar?')
+    var_movimentacao = select(Movimentacao).where(movimentacao_deletar == Movimentacao.status)
+    var_movimentacao = db_session.execute(var_movimentacao).scalar()
+    var_movimentacao.delete()
 
 
 def inserir_funcionario():
@@ -106,7 +107,7 @@ def inserir_funcionario():
                               telefone=int(input('Telefone: ')),
                               cpf=str(input('CPF: ')),
                               data_registro=str(input('Data de Registro: ')),
-                                )
+                              )
 
     print(funcionario)
     funcionario.save()
@@ -127,10 +128,11 @@ def atualizar_funcionario():
 
 
 def deletar_funcionario():
-        funcionario_deletar = input('Qual Funcionário deseja Deletar? ')
-        var_funcionario = select(Funcionario).where(funcionario_deletar == Funcionario.nome)
-        var_funcionario = db_session.execute(var_funcionario).scalar()
-        var_funcionario.delete()
+    funcionario_deletar = int(input('Qual Funcionário deseja Deletar? (ID): '))
+    var_funcionario = select(Funcionario).where(funcionario_deletar == Funcionario.id_funcionario)
+    var_funcionario = db_session.execute(var_funcionario).scalar()
+    var_funcionario.delete()
+
 
 if __name__ == '__main__':
 

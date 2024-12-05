@@ -1,6 +1,13 @@
 {% extends 'home.html' %}
+<div class="mensagens">
+    {%- for mensagem in get_flashed_messages()%}
 
+    {{mensagem}}
+
+    {%- endfor %}
+</div>
 {% block conteudo %}
+
 <table>
     <thead>
     <tr>

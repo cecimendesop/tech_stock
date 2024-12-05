@@ -1,34 +1,36 @@
 {% extends 'home.html' %}
 
 {% block conteudo %}
-{{produto}}
-<form action="{{ url_for('editar_produto', id_p=1) }}" method="POST">
-    <label>Nome</label>
-    <label>
-        <input type="text" name="form_nome" value="{{ produto.nome }}" required>
-    </label>
+<div class="formeditar">
+    <form action="{{ url_for('editar_produto', id_p=2) }}" method="POST">
+        <label>Nome</label>
+        <label>
+            <input type="text" name="form_nome" value="{{ produto.nome }}" required>
+        </label>
 
-    <label>Preço</label>
-    <label>
-        <input type="number" step="0.01" name="form_preco" value="{{ produto.preco }}" required>
-    </label>
+        <label>Preço</label>
+        <label>
+            <input type="number" step="0.01" name="form_preco" value="{{ produto.preco }}" required>
+        </label>
 
-    <label>Data de Fabricação</label>
-    <label>
-        <input type="date" name="form_data_fabricacao" value="{{ produto.data_fabricacao }}" required>
-    </label>
+        <label>Data de Fabricação</label>
+        <label>
+            <input type="date" name="form_data_fabricacao" value="{{ produto.data_fabricacao }}" required>
+        </label>
 
-    <label>Descrição</label>
-    <label>
-        <textarea name="form_descricao" required>{{ produto.descricao }}</textarea>
-    </label>
+        <label>Descrição</label>
+        <label>
+            <textarea name="form_descricao" required>{{ produto.descricao }}</textarea>
+        </label>
 
-    <label>Garantia do Produto</label>
-    <label>
-        <input type="text" name="form_garantia_produto" value="{{ produto.garantia_produto }}" required>
-    </label>
+        <label>Garantia do Produto</label>
+        <label>
+            <input type="text" name="form_garantia_produto" value="{{ produto.garantia_produto }}" required>
+        </label>
 
-    <button class="btn btn-success">Salvar</button>
-</form>
+        <button class="btn btn-success">Salvar</button>
+    </form>
+</div>
 
 {% endblock conteudo %}
+

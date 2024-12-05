@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from sqlalchemy.testing import db
+
 
 from models import Produto, Categoria, Funcionario, Movimentacao, db_session
 from sqlalchemy import select
@@ -74,13 +74,13 @@ def editar_produto(id_p):
     produto = db_session.execute(select(Produto).where(Produto.id_produto == id_p)).scalar()
 
     if request.method == 'POST':
-        produto.nome = request.form['form_nome'],
-        produto.preco = (float(request.form['form_preco'])),
-        produto.data_fabricacao = request.form['form_data_fabricacao'],
-        produto.descricao = request.form['form_descricao'],
-        produto.garantia_produto = request.form['form_garantia_produto'],
+        produto.nome = request.form['form_nome']
+        produto.preco = request.form['form_preco']
+        produto.data_fabricacao = request.form['form_data_fabricacao']
+        produto.descricao = request.form['form_descricao']
+        produto.garantia_produto = request.form['form_garantia_produto']
 
-        db.session.commit()
+        db_session.commit()
         return redirect(url_for('produtos'))
 
     return render_template('editar_produto.html', produto=produto)
@@ -128,6 +128,23 @@ def funcionarios():
     resultado_funcionarios = db_session.execute(sql_funcionarios).scalars().all()
     lista_funcionarios = [n.serialize_funcionario() for n in resultado_funcionarios]
     return render_template("funcionarios.html", lista_funcionarios=lista_funcionarios)
+
+
+@app.route('/editar_funcionario/<int:id_p>', methods=['GET', 'POST'])
+def editar_funcionario(id_p):
+    funcionario = db_session.execute(select(Funcionario).where(Funcionario.id_funcionario == id_p)).scalar()
+
+    if request.method == 'POST':
+        funcionario.nome = request.form['form_nome']
+        funcionario.email = request.form['form_email']
+        funcionario.senha = request.form['form_senha']
+        funcionario.telefone = request.form['form_telefone']
+        funcionario.cpf = request.form['form_cpf']
+
+        db_session.commit()
+        return redirect(url_for('funcionarios'))
+
+    return render_template('editar_funcionario.html', funcionarios=funcionario)
 
 
 @app.route('/movimentacao', methods=["POST", "GET"])
