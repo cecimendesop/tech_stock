@@ -792,3 +792,9 @@ td:hover, th:hover {
     background-color: #020101;
 }
 
+.grafico{
+    height: 75%;
+    width: 95%;
+    align-content: center;
+}
+
