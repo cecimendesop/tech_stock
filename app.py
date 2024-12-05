@@ -4,6 +4,11 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from models import Produto, Categoria, Funcionario, Movimentacao, db_session
 from sqlalchemy import select
 
+import plotly.express as px
+import plotly.io as pio
+
+
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
 
@@ -236,5 +241,52 @@ def relatorio():
 
     return render_template("relatorio.html", movimentacoes=lista_movimentacoes)
 
+@app.route('/grafico')
+def grafico():
+    # Consulta ao banco para pegar nome e quantidade de cada produto (limite de 5)
+    valor_produtos = db_session.execute(
+        select(Produto.nome, Produto.quantidade).limit(5)  # Limite de 5 produtos
+    ).fetchall()
+
+    # Verificando se há produtos retornados pela consulta
+    if not valor_produtos:
+        return "Nenhum produto encontrado no estoque.", 404
+
+    # Exibindo os dados dos produtos no console para depuração
+    print("Produtos encontrados:", valor_produtos)
+
+    # Dados dos produtos conforme sua estrutura
+    produtos = [
+        {"nome": valor_produtos[0][0], "quantidade": valor_produtos[0][1]},
+        {"nome": valor_produtos[1][0], "quantidade": valor_produtos[1][1]},
+        {"nome": valor_produtos[2][0], "quantidade": valor_produtos[2][1]},
+        {"nome": valor_produtos[3][0], "quantidade": valor_produtos[3][1]},
+        {"nome": valor_produtos[4][0], "quantidade": valor_produtos[4][1]}
+    ]
+
+    # Exibindo a estrutura dos dados organizados
+    print("Estrutura dos produtos:", produtos)
+
+    # Convertendo os dados para um DataFrame para facilitar o gráfico
+    df = px.pd.DataFrame(produtos)
+
+    # Criando o gráfico com Plotly Express
+    fig = px.bar(
+        df,
+        x="nome",
+        y="quantidade",
+        title="Quantidade dos produtos no estoque (Top 5)",
+        labels={"quantidade": "Quantidade", "nome": "Produto"},
+        color="nome"
+    )
+
+    # Adicionando rótulos com os valores das quantidades nas barras
+
+
+    # Convertendo o gráfico para HTML
+    graph_html = fig.to_html(full_html=False)
+
+    # Renderizando o template com o gráfico
+    return render_template("grafico.html", graph_html=graph_html)
 
 app.run(debug=True)
