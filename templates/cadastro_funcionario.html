@@ -1,0 +1,36 @@
+{% extends 'home.html'%}
+
+{% block conteudo %}
+<div class="BEM-VINDO">
+    <h1>BEM-VINDO!</h1>
+    <p>Já possui uma conta? Faça seu Cadastro</p>
+</div>
+    <div class="C_funcionario">
+        <form action="{{url_for('cadastro_funcionario')}}" method="POST">
+
+            <label> Nome </label>
+            <label><input type="text" name="form_nome"></label>
+           <br>
+
+            <label> Email </label>
+            <label><input type="text" name="form_email"></label>
+           <br>
+
+            <label> Senha </label>
+            <label><input type="text" name="form_senha"></label>
+           <br>
+
+            <label> Telefone </label>
+            <label><input type="text" name="form_telefone"></label>
+           <br>
+
+            <label> CPF </label>
+            <label><input type="text" name="form_cpf"></label>
+           <br>
+
+            <button> Adicionar </button>
+            <button><a href="{{url_for('cadastro_funcionario')}}">CANCELAR</a></button>
+
+        </form>
+    </div>
+{% endblock conteudo %}

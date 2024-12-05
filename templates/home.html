@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>TechStock</title>
+    <link rel="stylesheet" href="/static/home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Russo+One&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="menu">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="{{ url_for('produtos') }}">Produtos</a>
+                <a href="{{ url_for('movimentacao') }}">Movimentação</a>
+                <a href="{{ url_for('relatorio') }}">Relatórios</a>
+                <a href="{{ url_for('funcionarios') }}">Funcionários</a>
+            </div>
+
+            <!-- Use any element to open the sidenav -->
+            <span onclick="openNav()"><img src="static/barra-de-menu (1).png" alt="menu"></span>
+        </div>
+        <ul class="superior">
+            <li>
+                <div class="item-header">
+                    <a href="{{ url_for('home') }}">Home</a>
+                </div>
+            </li>
+            <li>
+                <div class="item-header">
+                    <a href="{{ url_for('about') }}">About</a>
+                </div>
+            </li>
+            <li>
+                <div class="item-header">
+                    <a href="{{ url_for('services') }}">Services</a>
+                </div>
+            </li>
+            <li>
+                <div class="item-header">
+                    <a href="{{ url_for('contact') }}">Contact</a>
+                </div>
+            </li>
+            <li>
+                <div class="signup">
+                    <a href="{{ url_for('cadastros') }}">CADASTROS</a>
+                </div>
+            </li>
+        </ul>
+        <div class="logo">
+            <img src="static/logo.png" alt="logo">
+        </div>
+    </div>
+</div>
+<main>
+    {% block conteudo %}
+    {% endblock %}
+</main>
+</body>
+<script>
+    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+</html>

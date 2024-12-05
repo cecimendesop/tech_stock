@@ -1,0 +1,32 @@
+{% extends 'home.html' %}
+
+{% block conteudo %}
+<table>
+    <thead>
+    <tr>
+        <th>ID Categoria</th>
+        <th>ID Produto</th>
+        <th>Nome do Produto</th>
+        <th>Preço</th>
+        <th>Data de Fabricação</th>
+        <th>Descrição</th>
+        <th>Garantia do Produto</th>
+        <th>ALTERAÇÕES</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for n in lista_produtos %}
+    <tr>
+        <td>{{n.id_categoria_produto}}</td>
+        <td>{{n.id_produto}}</td>
+        <td>{{n.nome}}</td>
+        <td>{{n.preco}}</td>
+        <td>{{n.data_fabricacao}}</td>
+        <td>{{n.descricao}}</td>
+        <td>{{n.garantia_produto}}</td>
+        <td><a href="{{ url_for('editar_produto', id_p=n.id_produto) }}">EDITAR {{lista_categoria}}</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock conteudo %}

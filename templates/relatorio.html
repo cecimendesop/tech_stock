@@ -1,0 +1,28 @@
+{% extends 'home.html' %}
+
+{% block conteudo %}
+<table>
+
+    <thead>
+    <tr>
+        <th>Produto</th>
+        <th>Funcionário</th>
+        <th>Quantidade</th>
+        <th>Data</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for n in movimentacoes %}
+    <tr>
+        <td>{{n.produto.nome}}</td>
+        <td>{{n.funcionario.nome}}</td>
+        <td>{{n.quantidade }}</td>
+        <td>{{n.data_atualizacao }}</td>
+        <td>{{n.status }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+{% endblock conteudo %}

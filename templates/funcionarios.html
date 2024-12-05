@@ -1,0 +1,13 @@
+{% extends 'home.html' %}
+
+{% block conteudo %}
+{% for n in lista_funcionarios %}
+<div class="cards">
+    ID Funcionário: {{n.id_funcionario}}<br>
+    Nome: {{n.nome}}<br>
+    Email: {{n.email}}<br>
+    Telefone: {{n.telefone}}<br>
+    CPF: {{n.cpf}}<br>>
+</div>
+{% endfor %}
+{% endblock conteudo %}
