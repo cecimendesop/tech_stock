@@ -1,12 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 
-
 from models import Produto, Categoria, Funcionario, Movimentacao, db_session
 from sqlalchemy import select
 
 import plotly.express as px
 import plotly.io as pio
-
 
 
 app = Flask(__name__)
@@ -135,21 +133,6 @@ def funcionarios():
     return render_template("funcionarios.html", lista_funcionarios=lista_funcionarios)
 
 
-@app.route('/editar_funcionario/<int:id_p>', methods=['GET', 'POST'])
-def editar_funcionario(id_p):
-    funcionario = db_session.execute(select(Funcionario).where(Funcionario.id_funcionario == id_p)).scalar()
-
-    if request.method == 'POST':
-        funcionario.nome = request.form['form_nome']
-        funcionario.email = request.form['form_email']
-        funcionario.senha = request.form['form_senha']
-        funcionario.telefone = request.form['form_telefone']
-        funcionario.cpf = request.form['form_cpf']
-
-        db_session.commit()
-        return redirect(url_for('funcionarios'))
-
-    return render_template('editar_funcionario.html', funcionarios=funcionario)
 
 
 @app.route('/movimentacao', methods=["POST", "GET"])
@@ -241,6 +224,7 @@ def relatorio():
 
     return render_template("relatorio.html", movimentacoes=lista_movimentacoes)
 
+
 @app.route('/grafico')
 def grafico():
     # Consulta ao banco para pegar nome e quantidade de cada produto (limite de 5)
@@ -256,7 +240,7 @@ def grafico():
     print("Produtos encontrados:", valor_produtos)
 
     # Dados dos produtos conforme sua estrutura
-    produtos = [
+    produto = [
         {"nome": valor_produtos[0][0], "quantidade": valor_produtos[0][1]},
         {"nome": valor_produtos[1][0], "quantidade": valor_produtos[1][1]},
         {"nome": valor_produtos[2][0], "quantidade": valor_produtos[2][1]},
@@ -265,10 +249,10 @@ def grafico():
     ]
 
     # Exibindo a estrutura dos dados organizados
-    print("Estrutura dos produtos:", produtos)
+    print("Estrutura dos produtos:", produto)
 
     # Convertendo os dados para um DataFrame para facilitar o gráfico
-    df = px.pd.DataFrame(produtos)
+    df = px.pd.DataFrame(produto)
 
     # Criando o gráfico com Plotly Express
     fig = px.bar(
@@ -282,11 +266,11 @@ def grafico():
 
     # Adicionando rótulos com os valores das quantidades nas barras
 
-
     # Convertendo o gráfico para HTML
     graph_html = fig.to_html(full_html=False)
 
     # Renderizando o template com o gráfico
     return render_template("grafico.html", graph_html=graph_html)
+
 
 app.run(debug=True)
